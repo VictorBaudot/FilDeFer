@@ -6,11 +6,11 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 15:23:01 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/11/30 08:44:13 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/11/30 12:23:49 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 static int	ft_read_and_fill(int fd, char **tab)
 {
