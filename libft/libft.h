@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 13:48:45 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/11/30 12:16:41 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/11/30 15:22:59 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+char			**ft_split_whitespaces(char *str);
+char			**ft_split_whitespaces(char *str);
 int				get_next_line(const int fd, char **line);
 long			ft_abs(int n);
 char			*ft_strreverse(char *s);

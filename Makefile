@@ -6,13 +6,15 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/11/30 10:55:34 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/11/30 14:07:08 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 NAME = fdf
-SRC = main.c
+SRC = main.c\
+		print_usage.c\
+		
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Werror -Wextra
 LIBFLAG = -Ilibft/
@@ -34,7 +36,7 @@ OK="$(GRE)$(CHE)$(NC)"
 all: $(NAME)
 
 test: all
-	@./$(NAME)
+	@./$(NAME) maps/pnp_flat.fdf
 
 $(NAME) : $(LIBFT) $(OBJ)
 	@printf "\n[$(NAME)] linking $(CYA)$(BOL)$(OBJ)$(NC)\n"

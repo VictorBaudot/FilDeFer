@@ -6,63 +6,94 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/11/30 12:23:26 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/11/30 15:39:38 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-typedef struct    data_s
+int nb_elems(char **split)
 {
-	void          *mlx;
-	void          *win;
-	int 		  color;
-}                 data_t;
+	int i;
 
-void draw_carre(int x, int y, int color, data_t *param)
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
+}
+
+int *ft_tab_atoi(char **split)
 {
-	int r;
+	int i;
+	int *tab;
+	int nb;
 
-	r = x;
-	while (y < 150)
+	i = 0;
+	nb = nb_elems(split);
+	tab = (int *)malloc(sizeof(int) * (nb + 1));
+	tab[i] = nb;
+	while (split[i] != 0)
 	{
-		x = r;
-		while (x < 150)
+		tab[i + 1] = ft_atoi(split[i]);
+		i++;
+	}
+	return (tab);
+}
+
+int	**get_map(int fd)
+{
+	int **map;
+	int ret;
+	char *line;
+	int i;
+
+	i = 0;
+	if (!(map = (int**)malloc(sizeof(map))))
+		ft_error();
+	while ((ret = get_next_line(fd, &line)) == 1)
+	{
+	//	printf("%s\n", line);
+		map[i] = ft_tab_atoi(ft_split_whitespaces(line));
+		free(line);
+		i++;
+	}
+	map[i] = 0;
+	return (map);
+}
+
+void print_map_points(int **map)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (map[y])
+	{
+		x = 1;
+		while (x < map[y][0])
 		{
-			mlx_pixel_put(param->mlx, param->win, x, y, color);
+			//printf("%d ", map[y][x]);
 			x++;
 		}
+		//printf("\n");
 		y++;
 	}
 }
 
-int	my_key_funct(int keycode, data_t *param)
+int main(int ac, char **av)
 {
-	printf("key event %d\n", keycode);
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	if (keycode == 15)
-		draw_carre(50, 50, param->color, param);
-	if (keycode == 9)
-		draw_carre(50, 50, 0x0000FF00, param);
-	if (keycode == 11)
-		draw_carre(50, 50, 0x000000FF, param);
-	param->color += 100;
-	return (0);
-}
+	int		fd;
+	int		**map;
 
-int main(void)
-{
-	data_t	*data;
-
-	data = (data_t*)malloc(sizeof(data));
-	data->color = 1;
-	if ((data->mlx = mlx_init()) == NULL)
-		return (EXIT_FAILURE);
-	if ((data->win = mlx_new_window(data->mlx, 600, 600, "Hello world")) == NULL)
-		return (EXIT_FAILURE);
-	draw_carre(50, 50, 0x00FFFFFF, data);
-	mlx_key_hook(data->win, my_key_funct, data);
-	mlx_loop(data->mlx);
+	if (ac == 2)
+	{
+		if ((fd = open(av[1], O_RDONLY)) == -1)
+			return (1);
+		map = get_map(fd);
+		print_map_points(map);
+		close(fd);
+	}
+	else
+		print_usage();
 	return (EXIT_SUCCESS);
 }
