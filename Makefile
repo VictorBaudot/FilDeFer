@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/11/30 14:07:08 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/01 16:39:45 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,12 @@ CC = gcc
 NAME = fdf
 SRC = main.c\
 		print_usage.c\
-		
+		draw.c\
+		fdf.c\
+		print_map_points.c\
+
 OBJ = $(SRC:.c=.o)
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -g -Werror -Wextra
 LIBFLAG = -Ilibft/
 DLIB = libft/
 LIBFT = libft.a
@@ -35,37 +38,37 @@ OK="$(GRE)$(CHE)$(NC)"
 
 all: $(NAME)
 
-test: all
-	@./$(NAME) maps/pnp_flat.fdf
-
-$(NAME) : $(LIBFT) $(OBJ)
+$(NAME): $(OBJ)
+	@make -C libft
+	@make -C minilibx
+	@mv libft/libft.a .
+	@mv minilibx/libmlx.a .
 	@printf "\n[$(NAME)] linking $(CYA)$(BOL)$(OBJ)$(NC)\n"
 	@printf "to make the binary $(MAG)$(BOL)$(NAME)$(NC)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(DLIB)$(LIBFT) -lmlx -framework OpenGL -framework AppKit
+	@gcc -Wall -g -Werror -Wextra -L. -lmlx -lft -framework OpenGL -framework Appkit $(OBJ) -o $(NAME)
 	@printf '\t\t'$(OK)'\n'
 
-$(LIBFT) :
-	@make -C $(DLIB) all
-
-%.o : %.c
+%.o: %.c
 	@printf "\r\033[0K[$(NAME)] compile $(BOL)$(YEL)$<$(NC)..."
-	@$(CC) $(CFLAGS) -I./libft -c $<
+	@$(CC) $(CFLAGS) -I./libft -I./minilibx -c $<
 	@printf '\t'$(OK)
 
 clean:
-	@make -C $(DLIB) $@
+	@make -C libft clean
+	@make -C minilibx clean
 	@printf "[$(NAME)] rm all $(BOL)$(RED) obj file$(NC)"
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ) libft.a libmlx.a
 	@printf '\t\t'$(OK)'\n'
 
 fclean: clean
-	@make -C $(DLIB) cleanf
+	@make -C libft fclean
+	@make -C minilibx clean
 	@printf "[$(NAME)] rm $(BOL)$(CYA)$(NAME)$(NC)"
-	@rm -f $(NAME)
+	@rm -rf $(NAME)
 	@printf '\t\t'$(OK)'\n'
 
 re: fclean all
 
-proper : all clean
+proper: all clean
 
 .PHONY: re proper

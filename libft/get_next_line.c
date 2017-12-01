@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 15:23:01 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/11/30 12:23:49 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/01 13:31:16 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int			get_next_line(const int fd, char **line)
 	{
 		CHECK(!(*line = ft_strdup(tab[fd])));
 		ft_strdel(tab + fd);
-		return (ft_strlen(*line) ? 1 : 0);
+		if (ft_strlen(*line))
+			return (1);
+		free(*line);
+		return(0);
 	}
 	CHECK(!(*line = ft_strsub(tab[fd], 0, ft_strchr(tab[fd], '\n') - tab[fd])));
 	tmp = tab[fd];
