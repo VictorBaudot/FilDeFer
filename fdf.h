@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:58:46 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/02 14:29:32 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/02 15:57:08 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@
 # include <math.h>
 # include "libft.h"
 
-# define WIN_WIDTH 1400
-# define WIN_HEIGHT 800
-# define TILE_WIDTH_HALF 36
-# define TILE_HEIGHT_HALF 36
-
 typedef struct	s_img
 {
 	void		*img_ptr;
@@ -44,16 +39,21 @@ typedef struct    data_s
 	void          	*win;
 	t_img			img;
 	int			  	**map;
+	int 			nb_lines;
+	int 			win_width;
+	int 			win_height;
+	int 			tile_width_half;
+	int 			tile_heigth_half;
 }                 data_t;
 
 void	all_black(data_t data);
 void	join_points(data_t data);
 void	print_map_points(data_t data);
-int		fdf_init(int **map);
+int		fdf_init(int **map, int nb_lines);
 float	float_abs(int n);
 void	ft_error(void);
 void	print_usage(void);
 void	draw_carre(int x, int y, int color, data_t *param);
-void	draw_segment(int x1, int y1, int x2, int y2, data_t data);
+void	draw_segment(int x1, int y1, int x2, int y2, data_t data, int color);
 
 #endif

@@ -6,11 +6,21 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 12:38:51 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/02 15:19:01 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/02 16:27:45 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int get_color(int alt)
+{
+	if (alt == 0)
+		return (0x29C815);
+	else if (alt > 0)
+		return (/*0x6A4706*/0x29C815);
+	else
+		return (0x0036FE);
+}
 
 void join_points(data_t data)
 {
@@ -18,6 +28,7 @@ void join_points(data_t data)
 	int ix;
 	int y;
 	int iy;
+	int color;
 
 	y = 0;
 	while (data.map[y])
@@ -25,12 +36,13 @@ void join_points(data_t data)
 		x = 1;
 		while (x < data.map[y][0])
 		{
-			ix = (x - y) * TILE_WIDTH_HALF;
-			iy = ((x + y) * (TILE_HEIGHT_HALF / 2)) - data.map[y][x] * 6;
+			ix = (x - y) * data.tile_width_half;
+			iy = ((x + y) * (data.tile_heigth_half / 2)) - data.map[y][x] * 6;
+			color = get_color(data.map[y][x]);
 			if (x > 1)
-				draw_segment(ix, iy, ((x - 1) - y) * TILE_WIDTH_HALF, (((x - 1) + y) * (TILE_HEIGHT_HALF / 2)) - data.map[y][x - 1] * 6, data);
+				draw_segment(ix, iy, ((x - 1) - y) * data.tile_width_half, (((x - 1) + y) * (data.tile_heigth_half / 2)) - data.map[y][x - 1] * 6, data, color);
 			if (y > 0 && x < data.map[y][0] + 1)
-				draw_segment(ix, iy, (x - (y - 1)) * TILE_WIDTH_HALF, ((x + (y - 1)) * (TILE_HEIGHT_HALF / 2)) - data.map[y - 1][x] * 6, data);
+				draw_segment(ix, iy, (x - (y - 1)) * data.tile_width_half, ((x + (y - 1)) * (data.tile_heigth_half / 2)) - data.map[y - 1][x] * 6, data, color);
 			x++;
 		}
 		y++;
@@ -52,9 +64,9 @@ void print_map_points(data_t data)
 		while (x < data.map[y][0])
 		{
 			//printf("%d ", param->map[y][x]);
-			ix = (x - y) * TILE_WIDTH_HALF;
-			iy = ((x + y) * (TILE_HEIGHT_HALF / 2)) - data.map[y][x] * 6;
-			data.img.data[(iy + 100) * WIN_WIDTH + ix + 450] = 0xFF00FF;
+			ix = (x - y) * data.tile_width_half;
+			iy = ((x + y) * (data.tile_heigth_half / 2)) - data.map[y][x] * 6;
+			data.img.data[(iy + 100) * data.win_width + ix + (data.nb_lines * data.tile_width_half)] = 0xFF00FF;
 			x++;
 		}
 		//printf("\n");
@@ -69,12 +81,12 @@ void all_black(data_t data)
 	int y;
 
 	y = 0;
-	while (y < WIN_HEIGHT)
+	while (y < data.win_height)
 	{
 		x = 0;
-		while (x < WIN_WIDTH)
+		while (x < data.win_width)
 		{
-			data.img.data[y * WIN_WIDTH + x] = 0x000000;
+			data.img.data[y * data.win_width + x] = 0x000000;
 			x++;
 		}
 		y++;

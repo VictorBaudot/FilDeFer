@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/01 13:31:48 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/02 15:55:12 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int *ft_tab_atoi(char **split)
 	return (tab);
 }
 
-int	**get_map(int fd)
+int	**get_map(int fd, int *nb_lines)
 {
 	int **map;
 	char *line;
@@ -58,6 +58,7 @@ int	**get_map(int fd)
 		i++;
 	}
 	//free(line);
+	*nb_lines = i;
 	map[i] = 0;
 	return (map);
 }
@@ -67,14 +68,15 @@ int main(int ac, char **av)
 	int		fd;
 	int		**map;
 	int		i;
+	int 	nb_lines;
 
 	i = -1;
 	if (ac == 2)
 	{
 		if ((fd = open(av[1], O_RDONLY)) == -1)
 			return (1);
-		map = get_map(fd);
-		fdf_init(map);
+		map = get_map(fd, &nb_lines);
+		fdf_init(map, nb_lines);
 		while (map[++i])
 			free(map[i]);
 		free(map);
