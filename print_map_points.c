@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 12:38:51 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/01 17:57:15 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/02 15:19:01 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,27 @@ void join_points(data_t data)
 {
 	int x;
 	int ix;
-	int iy;
-	int movex;
-	int movey;
 	int y;
+	int iy;
 
 	y = 0;
-	movey = 50;
 	while (data.map[y])
 	{
 		x = 1;
-		movex = 50;
 		while (x < data.map[y][0])
 		{
 			ix = (x - y) * TILE_WIDTH_HALF;
-			iy = (x + y) * TILE_HEIGHT_HALF;/*
-			if (x + 1 < data.map[y][0] && data.map[y][x] == 0 && data.map[y][x + 1] == 0)
-				draw_segment(x + 1 + movex + 50, y + movey, x + movex, y + movey, data);
-			if (y > 0 && data.map[y][x] == 0 && data.map[y - 1][x] == 0)
-				draw_segment(x + movex, y + movey, x + movex, y + movey - 50, data);*/
-			if (x + 1 < data.map[y][0] && data.map[y][x] == 0 && data.map[y][x + 1] == 0)
-				draw_segment(ix, iy, ix - TILE_WIDTH_HALF, iy, data);
-			if (y > 0 && data.map[y][x] == 0 && data.map[y - 1][x] == 0)
-				draw_segment(ix, iy, ix, iy - TILE_HEIGHT_HALF, data);
-			movex += 50;
+			iy = ((x + y) * (TILE_HEIGHT_HALF / 2)) - data.map[y][x] * 6;
+			if (x > 1)
+				draw_segment(ix, iy, ((x - 1) - y) * TILE_WIDTH_HALF, (((x - 1) + y) * (TILE_HEIGHT_HALF / 2)) - data.map[y][x - 1] * 6, data);
+			if (y > 0 && x < data.map[y][0] + 1)
+				draw_segment(ix, iy, (x - (y - 1)) * TILE_WIDTH_HALF, ((x + (y - 1)) * (TILE_HEIGHT_HALF / 2)) - data.map[y - 1][x] * 6, data);
 			x++;
 		}
-		movey += 50;
 		y++;
 	}
 	mlx_put_image_to_window(data.mlx, data.win, data.img.img_ptr, 0, 0);
 }
-
-// screen.x = (map.x - map.y) * TILE_WIDTH_HALF;
-// screen.y = (map.x + map.y) * TILE_HEIGHT_HALF;
 
 void print_map_points(data_t data)
 {
@@ -66,11 +53,30 @@ void print_map_points(data_t data)
 		{
 			//printf("%d ", param->map[y][x]);
 			ix = (x - y) * TILE_WIDTH_HALF;
-			iy = (x + y) * TILE_HEIGHT_HALF;
-			data.img.data[(iy + 250) * WIN_WIDTH + ix + 450] = 0xFFFFFF;
+			iy = ((x + y) * (TILE_HEIGHT_HALF / 2)) - data.map[y][x] * 6;
+			data.img.data[(iy + 100) * WIN_WIDTH + ix + 450] = 0xFF00FF;
 			x++;
 		}
 		//printf("\n");
+		y++;
+	}
+	mlx_put_image_to_window(data.mlx, data.win, data.img.img_ptr, 0, 0);
+}
+
+void all_black(data_t data)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < WIN_HEIGHT)
+	{
+		x = 0;
+		while (x < WIN_WIDTH)
+		{
+			data.img.data[y * WIN_WIDTH + x] = 0x000000;
+			x++;
+		}
 		y++;
 	}
 	mlx_put_image_to_window(data.mlx, data.win, data.img.img_ptr, 0, 0);

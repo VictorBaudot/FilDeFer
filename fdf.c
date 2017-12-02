@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 13:43:03 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/01 16:59:21 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/02 11:47:56 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	my_key_funct(int keycode, data_t *data)
 		mlx_destroy_window(data->mlx, data->win);
 		exit(EXIT_SUCCESS);
 	}
+	if (keycode == 82)
+		all_black(*data);
 	if (keycode == 83)
 		print_map_points(*data);
 	if (keycode == 84)
