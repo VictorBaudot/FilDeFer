@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   change_color.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/03 14:02:34 by vbaudot          ###   ########.fr       */
+/*   Created: 2017/12/03 14:07:08 by vbaudot           #+#    #+#             */
+/*   Updated: 2017/12/03 14:07:23 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int main(int ac, char **av)
+int get_color(int alt)
 {
-	int		fd;
-	int		**map;
-	int		i;
-	int 	nb_lines;
-
-	i = -1;
-	if (ac == 2)
-	{
-		if ((fd = open(av[1], O_RDONLY)) == -1)
-			return (1);
-		map = get_map(fd, &nb_lines);
-		fdf_init(map, nb_lines);
-		while (map[++i])
-			free(map[i]);
-		free(map);
-		close(fd);
-	}
+	if (alt == 0)
+		return (0x29C815);
+	else if (alt > 0)
+		return (0x6A4706);
 	else
-		print_usage();
-	//while (42){}
-	return (EXIT_SUCCESS);
+		return (0x0036FE);
+}
+
+void all_black(data_t data)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < data.win_height)
+	{
+		x = 0;
+		while (x < data.win_width)
+		{
+			data.img.data[y * data.win_width + x] = 0x000000;
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(data.mlx, data.win, data.img.img_ptr, 0, 0);
 }

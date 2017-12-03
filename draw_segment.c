@@ -6,28 +6,11 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 13:44:03 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/02 16:27:57 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/03 14:06:02 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void draw_carre(int x, int y, int color, data_t *data)
-{
-	int r;
-
-	r = x;
-	while (y < 400)
-	{
-		x = r;
-		while (x < 400)
-		{
-			data->img.data[(y + 100) * data->win_width + x + 450] = color;
-			x++;
-		}
-		y++;
-	}
-}
 
 void draw_segment(int xi, int yi, int xf, int yf, data_t data, int color)
 {
@@ -48,7 +31,7 @@ void draw_segment(int xi, int yi, int xf, int yf, data_t data, int color)
 	yinc = (dy > 0) ? 1 : -1;
 	dx = abs(dx);
 	dy = abs(dy);
-	data.img.data[(y + 100) * data.win_width + x + (data.nb_lines * data.tile_width_half)] = color;
+	data.img.data[(y + get_center_v(data)) * data.win_width + x + get_center_h(data)] = color;
 	if (dx > dy)
 	{
 		cumul = dx / 2;
@@ -62,7 +45,7 @@ void draw_segment(int xi, int yi, int xf, int yf, data_t data, int color)
 				cumul -= dx;
 				y += yinc;
 			}
-			data.img.data[(y + 100) * data.win_width + x + (data.nb_lines * data.tile_width_half)] = color;
+			data.img.data[(y + get_center_v(data)) * data.win_width + x + get_center_h(data)] = color;
 		}
 	}
 	else
@@ -73,12 +56,12 @@ void draw_segment(int xi, int yi, int xf, int yf, data_t data, int color)
 		{
 			y += yinc;
 			cumul += dx;
-			if ( cumul >= dy )
+			if (cumul >= dy)
 			{
 				cumul -= dy;
 				x += xinc;
 			}
-			data.img.data[(y + 100) * data.win_width + x + (data.nb_lines * data.tile_width_half)] = color;
+			data.img.data[(y + get_center_v(data)) * data.win_width + x + get_center_h(data)] = color;
 		}
 	}
 }

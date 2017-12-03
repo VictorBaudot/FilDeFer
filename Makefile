@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/01 16:39:45 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/03 15:08:29 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,14 @@ CC = gcc
 NAME = fdf
 SRC = main.c\
 		print_usage.c\
-		draw.c\
+		draw_segment.c\
 		fdf.c\
 		print_map_points.c\
+		get_center.c\
+		events.c\
+		create_map.c\
+		change_color.c\
+		fill_square.c\
 
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -g -Werror -Wextra
@@ -41,11 +46,10 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C libft
 	@make -C minilibx
-	@mv libft/libft.a .
 	@mv minilibx/libmlx.a .
 	@printf "\n[$(NAME)] linking $(CYA)$(BOL)$(OBJ)$(NC)\n"
 	@printf "to make the binary $(MAG)$(BOL)$(NAME)$(NC)"
-	@gcc -Wall -g -Werror -Wextra -L. -lmlx -lft -framework OpenGL -framework Appkit $(OBJ) -o $(NAME)
+	@gcc -Wall -g -Werror -Wextra -L./libft -lmlx -lft -framework OpenGL -framework Appkit $(OBJ) -o $(NAME)
 	@printf '\t\t'$(OK)'\n'
 
 %.o: %.c
@@ -54,14 +58,12 @@ $(NAME): $(OBJ)
 	@printf '\t'$(OK)
 
 clean:
-	@make -C libft clean
 	@make -C minilibx clean
 	@printf "[$(NAME)] rm all $(BOL)$(RED) obj file$(NC)"
-	@rm -rf $(OBJ) libft.a libmlx.a
+	@rm -rf $(OBJ) libmlx.a
 	@printf '\t\t'$(OK)'\n'
 
 fclean: clean
-	@make -C libft fclean
 	@make -C minilibx clean
 	@printf "[$(NAME)] rm $(BOL)$(CYA)$(NAME)$(NC)"
 	@rm -rf $(NAME)

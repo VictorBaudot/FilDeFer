@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/03 14:02:34 by vbaudot          ###   ########.fr       */
+/*   Created: 2017/12/03 14:00:46 by vbaudot           #+#    #+#             */
+/*   Updated: 2017/12/03 14:01:11 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int main(int ac, char **av)
+int	my_key_funct(int keycode, data_t *data)
 {
-	int		fd;
-	int		**map;
-	int		i;
-	int 	nb_lines;
-
-	i = -1;
-	if (ac == 2)
+	printf("key event %d\n", keycode);
+	if (keycode == 53)
 	{
-		if ((fd = open(av[1], O_RDONLY)) == -1)
-			return (1);
-		map = get_map(fd, &nb_lines);
-		fdf_init(map, nb_lines);
-		while (map[++i])
-			free(map[i]);
-		free(map);
-		close(fd);
+		mlx_destroy_image(data->mlx, data->img.img_ptr);
+		mlx_destroy_window(data->mlx, data->win);
+		exit(EXIT_SUCCESS);
 	}
-	else
-		print_usage();
-	//while (42){}
-	return (EXIT_SUCCESS);
+	if (keycode == 82)
+		all_black(*data);
+	if (keycode == 83)
+		print_map_points(*data);
+	if (keycode == 84)
+		join_points(*data);
+	return (0);
 }

@@ -6,29 +6,11 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 13:43:03 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/02 16:36:31 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/03 14:01:06 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int	my_key_funct(int keycode, data_t *data)
-{
-	printf("key event %d\n", keycode);
-	if (keycode == 53)
-	{
-		mlx_destroy_image(data->mlx, data->img.img_ptr);
-		mlx_destroy_window(data->mlx, data->win);
-		exit(EXIT_SUCCESS);
-	}
-	if (keycode == 82)
-		all_black(*data);
-	if (keycode == 83)
-		print_map_points(*data);
-	if (keycode == 84)
-		join_points(*data);
-	return (0);
-}
 
 data_t init_data_win_and_tiles(data_t data)
 {
@@ -36,12 +18,10 @@ data_t init_data_win_and_tiles(data_t data)
 
 	data.win_width = 1200;
 	data.win_height = 1200;
+	data.depth = 2;
 	l = (data.map[0][0] >= data.nb_lines) ? data.map[0][0] : data.nb_lines;
-	// printf("tile_width: %d\n", (data.win_width - 200) / (l * 2));
 	data.tile_width_half = (data.win_width - 200) / (l * 2);
 	data.tile_heigth_half = (data.win_height - 200) / (l * 2);
-	// data.tile_width_half = 36;
-	// data.tile_heigth_half = 36;
 	return (data);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:58:46 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/02 15:57:08 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/03 15:28:56 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@
 # include <stdlib.h>
 # include <math.h>
 # include "libft.h"
+
+typedef struct	s_pos
+{
+	int			x;
+	int			y;
+}				t_pos;
+
+typedef struct	s_square
+{
+	t_pos		a;
+	t_pos		b;
+	t_pos		c;
+	t_pos		d;
+}				t_square;
 
 typedef struct	s_img
 {
@@ -42,10 +56,18 @@ typedef struct    data_s
 	int 			nb_lines;
 	int 			win_width;
 	int 			win_height;
-	int 			tile_width_half;
-	int 			tile_heigth_half;
+	float 			tile_width_half;
+	float 			tile_heigth_half;
+	int 			depth;
 }                 data_t;
 
+void	fill_square(t_square square/*, data_t data, int color*/);
+int		get_color(int alt);
+void	all_black(data_t data);
+int		**get_map(int fd, int *nb_lines);
+int		my_key_funct(int keycode, data_t *data);
+int		get_center_h(data_t data);
+int		get_center_v(data_t data);
 void	all_black(data_t data);
 void	join_points(data_t data);
 void	print_map_points(data_t data);
@@ -53,7 +75,6 @@ int		fdf_init(int **map, int nb_lines);
 float	float_abs(int n);
 void	ft_error(void);
 void	print_usage(void);
-void	draw_carre(int x, int y, int color, data_t *param);
 void	draw_segment(int x1, int y1, int x2, int y2, data_t data, int color);
 
 #endif
