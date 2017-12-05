@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/03 14:02:34 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/05 09:04:01 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ int main(int ac, char **av)
 	}
 	else
 		print_usage();
-	//while (42){}
 	return (EXIT_SUCCESS);
 }

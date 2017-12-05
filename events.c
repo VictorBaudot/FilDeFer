@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 14:00:46 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/03 14:01:11 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/05 09:08:53 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 int	my_key_funct(int keycode, data_t *data)
 {
-	printf("key event %d\n", keycode);
+	int i;
+
+	i = -1;
 	if (keycode == 53)
 	{
 		mlx_destroy_image(data->mlx, data->img.img_ptr);
 		mlx_destroy_window(data->mlx, data->win);
+		while (data->map[++i])
+			free(data->map[i]);
+		free(data->map);
+		while (42){}
 		exit(EXIT_SUCCESS);
 	}
 	if (keycode == 82)

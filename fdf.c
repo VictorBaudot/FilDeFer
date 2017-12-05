@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 13:43:03 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/03 14:01:06 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/05 09:00:43 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,5 @@ int fdf_init(int **map, int nb_lines)
 	mlx_put_image_to_window(data.mlx, data.win, data.img.img_ptr, 0, 0);
 	mlx_key_hook(data.win, my_key_funct, &data);
 	mlx_loop(data.mlx);
-	/*
-
-	mlx_loop(data.mlx);*/
-//	free(data->map);
-	//free(data);
 	exit(EXIT_SUCCESS);
 }

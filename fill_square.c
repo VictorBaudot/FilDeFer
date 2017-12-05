@@ -6,11 +6,13 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 14:39:28 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/03 16:58:12 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/05 09:18:49 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+// Pour plus tard gerer les lignes cachees
 
 static int get_y_min(t_square square)
 {

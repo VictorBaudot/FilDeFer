@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:58:46 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/03 15:28:56 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/05 08:47:21 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct    data_s
 	int 			nb_lines;
 	int 			win_width;
 	int 			win_height;
-	float 			tile_width_half;
-	float 			tile_heigth_half;
+	double 			tile_width_half;
+	double 			tile_heigth_half;
 	int 			depth;
 }                 data_t;
 

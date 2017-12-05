@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 12:38:51 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/03 15:28:44 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/05 08:36:07 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void join_points(data_t data)
 				square.b.y = ((x + (y - 1)) * (data.tile_heigth_half / 2)) - data.map[y - 1][x] * data.depth;
 				square.c.y = (((x - 1) + y) * (data.tile_heigth_half / 2)) - data.map[y][x - 1] * data.depth;
 				square.d.y = iy;
-				fill_square(square);
+				//fill_square(square);
 			}
 			x++;
 		}

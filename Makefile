@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/03 15:08:29 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/05 09:12:33 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,9 @@ SRC = main.c\
 		events.c\
 		create_map.c\
 		change_color.c\
-		fill_square.c\
 
 OBJ = $(SRC:.c=.o)
-CFLAGS = -Wall -g -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -ggdb
 LIBFLAG = -Ilibft/
 DLIB = libft/
 LIBFT = libft.a
