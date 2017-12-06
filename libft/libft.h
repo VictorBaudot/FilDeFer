@@ -6,15 +6,14 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 13:48:45 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/11/30 15:22:59 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/06 13:18:58 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# define BUFF_SIZE 8
-# define CHECK(x) if (x) return (-1);
+# define BUFF_SIZE 2048
 
 # include <unistd.h>
 # include <stdlib.h>

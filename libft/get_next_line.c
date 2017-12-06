@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 15:23:01 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/01 13:31:16 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/06 11:16:16 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,25 @@ static int	ft_read_and_fill(int fd, char **tab)
 	{
 		buf[size] = '\0';
 		tmp = tab[fd];
-		CHECK(!(tab[fd] = ft_strjoin(tab[fd], buf)));
+		if (!(tab[fd] = ft_strjoin(tab[fd], buf)))
+			return (-1);
 		ft_strdel(&tmp);
 	}
 	return (size);
+}
+
+static int	end_of_file(char **tab, int fd, char **line)
+{
+	if (!(*line = ft_strdup(tab[fd])))
+		return (-1);
+	ft_strdel(tab + fd);
+	if (ft_strlen(*line))
+		return (1);
+	else
+	{
+		ft_strdel(line);
+		return (0);
+	}
 }
 
 int			get_next_line(const int fd, char **line)
@@ -36,21 +51,19 @@ int			get_next_line(const int fd, char **line)
 	char		*tmp;
 	int			ret;
 
-	CHECK(fd < 0 || line == NULL || fd > OPEN_MAX);
-	CHECK(tab[fd] == NULL && (tab[fd] = ft_strnew(0)) == NULL);
-	CHECK((ret = ft_read_and_fill(fd, tab)) == -1);
+	if (fd < 0 || line == NULL || fd > OPEN_MAX)
+		return (-1);
+	if (tab[fd] == NULL && (tab[fd] = ft_strnew(0)) == NULL)
+		return (-1);
+	if ((ret = ft_read_and_fill(fd, tab)) == -1)
+		return (-1);
 	if (ret == 0)
-	{
-		CHECK(!(*line = ft_strdup(tab[fd])));
-		ft_strdel(tab + fd);
-		if (ft_strlen(*line))
-			return (1);
-		free(*line);
-		return(0);
-	}
-	CHECK(!(*line = ft_strsub(tab[fd], 0, ft_strchr(tab[fd], '\n') - tab[fd])));
+		return (end_of_file(tab, fd, line));
+	if (!(*line = ft_strsub(tab[fd], 0, ft_strchr(tab[fd], '\n') - tab[fd])))
+		return (-1);
 	tmp = tab[fd];
-	CHECK(!(tab[fd] = ft_strdup(ft_strchr(tab[fd], '\n') + 1)));
+	if (!(tab[fd] = ft_strdup(ft_strchr(tab[fd], '\n') + 1)))
+		return (-1);
 	ft_strdel(&tmp);
 	return (1);
 }

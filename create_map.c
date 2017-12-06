@@ -6,13 +6,13 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 14:02:17 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/03 14:03:37 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/06 14:47:47 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int nb_elems(char **split)
+static int	nb_elems(char **split)
 {
 	int i;
 
@@ -22,7 +22,7 @@ static int nb_elems(char **split)
 	return (i);
 }
 
-static int *ft_tab_atoi(char **split)
+static int	*ft_tab_atoi(char **split)
 {
 	int i;
 	int *tab;
@@ -42,11 +42,11 @@ static int *ft_tab_atoi(char **split)
 	return (tab);
 }
 
-int	**get_map(int fd, int *nb_lines)
+int			**get_map(int fd, int *nb_lines)
 {
-	int **map;
-	char *line;
-	int i;
+	int		**map;
+	char	*line;
+	int		i;
 
 	i = 0;
 	if (!(map = (int**)malloc(sizeof(map))))
@@ -54,6 +54,8 @@ int	**get_map(int fd, int *nb_lines)
 	while (get_next_line(fd, &line) == 1)
 	{
 		map[i] = ft_tab_atoi(ft_split_whitespaces(line));
+		if (map[i][0] != map[0][0])
+			ft_error();
 		free(line);
 		i++;
 	}

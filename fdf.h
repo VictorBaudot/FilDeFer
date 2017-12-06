@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:58:46 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/05 08:47:21 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/06 14:43:23 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,6 @@
 # include <math.h>
 # include "libft.h"
 
-typedef struct	s_pos
-{
-	int			x;
-	int			y;
-}				t_pos;
-
-typedef struct	s_square
-{
-	t_pos		a;
-	t_pos		b;
-	t_pos		c;
-	t_pos		d;
-}				t_square;
-
 typedef struct	s_img
 {
 	void		*img_ptr;
@@ -52,7 +38,6 @@ typedef struct    data_s
 	void          	*mlx;
 	void          	*win;
 	t_img			img;
-	int			  	**map;
 	int 			nb_lines;
 	int 			win_width;
 	int 			win_height;
@@ -61,20 +46,14 @@ typedef struct    data_s
 	int 			depth;
 }                 data_t;
 
-void	fill_square(t_square square/*, data_t data, int color*/);
-int		get_color(int alt);
-void	all_black(data_t data);
 int		**get_map(int fd, int *nb_lines);
-int		my_key_funct(int keycode, data_t *data);
-int		get_center_h(data_t data);
-int		get_center_v(data_t data);
-void	all_black(data_t data);
-void	join_points(data_t data);
-void	print_map_points(data_t data);
+int		my_key_funct(int keycode);
+int		get_center_h(data_t data, int **map);
+int		get_center_v(data_t data, int **map);
+void	join_points(data_t data, int **map);
 int		fdf_init(int **map, int nb_lines);
-float	float_abs(int n);
 void	ft_error(void);
 void	print_usage(void);
-void	draw_segment(int x1, int y1, int x2, int y2, data_t data, int color);
+void	draw_segment(int x1, int y1, int x2, int y2, data_t data, int **map);
 
 #endif
