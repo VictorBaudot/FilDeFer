@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/06 14:18:39 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/06 16:29:04 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = main.c\
 		get_center.c\
 
 OBJ = $(SRC:.c=.o)
+MLX = -L./libft -lmlx -lft -framework OpenGL -framework Appkit -g -fsanitize=address
 CFLAGS = -Wall -Werror -Wextra
 LIBFLAG = -Ilibft/
 DLIB = libft/
@@ -43,11 +44,11 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C libft
-	@make -C minilibx
-	@mv minilibx/libmlx.a .
+	#@make -C minilibx
+	#@mv minilibx/libmlx.a .
 	@printf "\n[$(NAME)] linking $(CYA)$(BOL)$(OBJ)$(NC)\n"
 	@printf "to make the binary $(MAG)$(BOL)$(NAME)$(NC)"
-	@gcc -Wall -Werror -Wextra -g -fsanitize=address -L./libft -lmlx -lft -framework OpenGL -framework Appkit $(OBJ) -o $(NAME)
+	@gcc $(CFLAGS) $(MLX) $(OBJ) -o $(NAME)
 	@printf '\t\t'$(OK)'\n'
 
 %.o: %.c

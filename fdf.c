@@ -6,20 +6,22 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 13:43:03 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/06 14:48:51 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/06 16:14:55 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static data_t	init_data_win_and_tiles(data_t data, int **map)
+static t_data	init_data_win_and_tiles(t_data data, int **map)
 {
 	int	l;
 
 	data.win_width = 1200;
 	data.win_height = 1200;
 	data.depth = 2;
-	l = (map[0][0] >= data.nb_lines) ? map[0][0] : data.nb_lines;
+	data.nb_cols = map[0][0];
+	data.p = map[0][1];
+	l = (data.nb_cols >= data.nb_lines) ? data.nb_cols : data.nb_lines;
 	data.tile_width_half = (data.win_width - 200) / (l * 2);
 	data.tile_heigth_half = (data.win_height - 200) / (l * 2);
 	return (data);
@@ -27,7 +29,7 @@ static data_t	init_data_win_and_tiles(data_t data, int **map)
 
 int				fdf_init(int **map, int nb_lines)
 {
-	data_t	data;
+	t_data	data;
 	int		i;
 
 	i = -1;
