@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 13:43:03 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/06 16:14:55 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/07 16:47:33 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_data	init_data_win_and_tiles(t_data data, int **map)
 
 	data.win_width = 1200;
 	data.win_height = 1200;
-	data.depth = 2;
+	data.depth = 1;
 	data.nb_cols = map[0][0];
 	data.p = map[0][1];
 	l = (data.nb_cols >= data.nb_lines) ? data.nb_cols : data.nb_lines;
@@ -47,7 +47,7 @@ int				fdf_init(int **map, int nb_lines)
 	while (++i < data.nb_lines)
 		free(map[i]);
 	mlx_put_image_to_window(data.mlx, data.win, data.img.img_ptr, 0, 0);
-	mlx_key_hook(data.win, my_key_funct, 0);
+	mlx_key_hook(data.win, my_key_funct, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_image(data.mlx, data.img.img_ptr);
 	mlx_destroy_window(data.mlx, data.win);

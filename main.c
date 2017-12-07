@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/06 14:49:08 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/07 16:42:57 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int	main(int ac, char **av)
 	int		nb_lines;
 
 	i = -1;
+	nb_lines = 0;
 	if (ac == 2)
 	{
 		if ((fd = open(av[1], O_RDONLY)) == -1)
-			return (1);
-		map = get_map(fd, &nb_lines);
+			ft_error();
+		map = get_map(av[1], fd, &nb_lines);
 		fdf_init(map, nb_lines);
 		while (++i < nb_lines)
 			free(map[i]);
-		close(fd);
 	}
 	else
 		print_usage();

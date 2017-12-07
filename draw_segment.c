@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 13:44:03 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/06 16:14:55 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/07 13:36:42 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		f1(t_data data, int *tab, int dx, int dy)
 			cumul -= dx;
 			tab[1] += yinc;
 		}
-		data.img.data[(tab[1]+ get_center_v(data)) * data.win_width + tab[0]
+		data.img.data[(tab[1] + get_center_v(data)) * data.win_width + tab[0]
 		+ get_center_h(data)] = 0xFFFFFF;
 	}
 }

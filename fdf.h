@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:58:46 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/06 16:14:55 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/07 16:48:21 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct	s_data
 	int			p;
 }				t_data;
 
-int				**get_map(int fd, int *nb_lines);
-int				my_key_funct(int keycode);
+int				**get_map(char *av, int fd, int *nb_lines);
+int				my_key_funct(int keycode, t_data *data);
 int				get_center_h(t_data data);
 int				get_center_v(t_data data);
 void			join_points(t_data data, int **map);
