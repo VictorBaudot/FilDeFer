@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/07 15:33:11 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/13 15:17:43 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,20 +16,18 @@ SRC = main.c\
 		print_usage.c\
 		draw_segment.c\
 		fdf.c\
-		print_map_points.c\
+		projection_iso.c\
 		events.c\
 		create_map.c\
 		get_center.c\
+		all_black.c\
+		print_points.c\
 
 OBJ = $(SRC:.c=.o)
-MLX = -L./libft -lmlx -lft -framework OpenGL -framework Appkit
-DEBUG = #-g -fsanitize=address
-
+MLX = -L./minilibx_macos -lmlx -L./libft -lft -framework OpenGL -framework Appkit
+DEBUG = -g -fsanitize=address
 CFLAGS = -Wall -Werror -Wextra
-LIBFLAG = -Ilibft/
-DLIB = libft/
 LIBFT = libft.a
-MAIFLAG = -I./
 
 YEL="\\033[33m"
 BLU="\\033[34m"
@@ -48,23 +46,23 @@ $(NAME): $(OBJ)
 	@make -C libft
 	@printf "\n[$(NAME)] linking $(CYA)$(BOL)$(OBJ)$(NC)\n"
 	@printf "to make the binary $(MAG)$(BOL)$(NAME)$(NC)"
-	@gcc $(CFLAGS) $(DEBUG) $(MLX) $(OBJ) -o $(NAME)
+	@gcc $(CFLAGS) $(MLX) $(OBJ) $(DEBUG) -o $(NAME)
 	@printf '\t\t'$(OK)'\n'
 
 %.o: %.c
 	@printf "\r\033[0K[$(NAME)] compile $(BOL)$(YEL)$<$(NC)..."
-	@$(CC) $(CFLAGS) -I./libft -I./minilibx -c $<
+	@$(CC) $(CFLAGS) -I./libft -I./minilibx_macos -c $<
 	@printf '\t'$(OK)
 
 clean:
-	@make -C minilibx clean
+	@make -C minilibx_macos clean
 	@make -C libft clean
 	@printf "[$(NAME)] rm all $(BOL)$(RED) obj file$(NC)"
 	@rm -rf $(OBJ) libmlx.a
 	@printf '\t\t'$(OK)'\n'
 
 fclean: clean
-	@make -C minilibx clean
+	@make -C minilibx_macos clean
 	@make -C libft fclean
 	@printf "[$(NAME)] rm $(BOL)$(CYA)$(NAME)$(NC)"
 	@rm -rf $(NAME)

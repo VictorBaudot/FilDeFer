@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 13:44:03 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/07 13:36:42 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/13 15:38:16 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		f1(t_data data, int *tab, int dx, int dy)
 			tab[1] += yinc;
 		}
 		data.img.data[(tab[1] + get_center_v(data)) * data.win_width + tab[0]
-		+ get_center_h(data)] = 0xFFFFFF;
+		+ get_center_h(data)] = data.color;
 	}
 }
 
@@ -62,7 +62,7 @@ static void		f2(t_data data, int *tab, int dx, int dy)
 			tab[0] += xinc;
 		}
 		data.img.data[(tab[1] + get_center_v(data)) * data.win_width + tab[0]
-		+ get_center_h(data)] = 0xFFFFFF;
+		+ get_center_h(data)] = data.color;
 	}
 }
 
@@ -77,7 +77,7 @@ void			draw_segment(t_pos t, t_data data)
 	dx = t.xf - t.xi;
 	dy = t.yf - t.yi;
 	data.img.data[(tab[1] + get_center_v(data)) * data.win_width
-	+ tab[0] + get_center_h(data)] = 0xFFFFFF;
+	+ tab[0] + get_center_h(data)] = data.color;
 	if (abs(dx) > abs(dy))
 		f1(data, tab, dx, dy);
 	else
