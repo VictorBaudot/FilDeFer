@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/13 15:17:43 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/14 11:19:21 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = main.c\
 		get_center.c\
 		all_black.c\
 		print_points.c\
+		fdf_destroy.c\
 
 OBJ = $(SRC:.c=.o)
 MLX = -L./minilibx_macos -lmlx -L./libft -lft -framework OpenGL -framework Appkit
@@ -46,7 +47,7 @@ $(NAME): $(OBJ)
 	@make -C libft
 	@printf "\n[$(NAME)] linking $(CYA)$(BOL)$(OBJ)$(NC)\n"
 	@printf "to make the binary $(MAG)$(BOL)$(NAME)$(NC)"
-	@gcc $(CFLAGS) $(MLX) $(OBJ) $(DEBUG) -o $(NAME)
+	@gcc $(CFLAGS) $(MLX) $(OBJ) -o $(NAME)
 	@printf '\t\t'$(OK)'\n'
 
 %.o: %.c

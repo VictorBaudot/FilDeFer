@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:58:46 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/13 15:36:57 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/14 11:21:59 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct	s_data
 	int			color;
 }				t_data;
 
+int				fdf_destroy(t_data *data);
 void			print_iso_points(t_data *data);
 void			all_black(t_data data);
 int				**get_map(char *av, int fd, int *nb_lines);
