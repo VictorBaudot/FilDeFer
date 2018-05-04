@@ -7,3 +7,5 @@
 !libft
 !minilibx_macos
 !maps
+!*.pdf
+!README*
